@@ -1,0 +1,9 @@
+Param(
+	[Parameter(Mandatory=$true)] [string]$RepoLink
+)
+
+try{
+	cd Data/Temp
+	git clone $RepoLink
+} 
+catch { "Unable to clone from $RepoLink" }
