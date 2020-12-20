@@ -60,12 +60,11 @@
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="outputs averaged similarity index between 2 repositories with GitDiff found in input folder" DisplayName="FilterResults" sap:VirtualizedContainerService.HintSize="604.666666666667,1388" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="Txtfile" />
-      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="SimilarityIndexes" />
-      <Variable x:TypeArguments="x:String" Name="indexes" />
+      <Variable x:TypeArguments="x:String" Name="TxtFileWithGitDiff" />
+      <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="FollowsEndingRequired" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="TotalSimilarityValue" />
-      <Variable x:TypeArguments="x:Double" Name="WeightedSimilarityIndex" />
-      <Variable x:TypeArguments="x:Int32" Default="0" Name="Count" />
+      <Variable x:TypeArguments="x:Double" Name="AveragedSimilarityIndex" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="NumberOfUsefulMatches" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -73,9 +72,9 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ReadTextFile Content="[Txtfile]" DisplayName="Read Text File" FileName="Data\Input\testdiff.txt" sap:VirtualizedContainerService.HintSize="562.666666666667,80.6666666666667" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
-    <ui:Matches BuilderPattern="abc" DisplayName="Grabs line below .csproj line ending" sap:VirtualizedContainerService.HintSize="562.666666666667,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[Txtfile]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;LIT&quot;,&quot;OperationName&quot;:&quot;Literal&quot;,&quot;OperationValue&quot;:&quot;abc&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?&lt;=.csproj)\n.*" RegexOption="IgnoreCase" Result="[SimilarityIndexes]" />
-    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="562.666666666667,841.333333333333" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[SimilarityIndexes]">
+    <ui:ReadTextFile Content="[TxtFileWithGitDiff]" DisplayName="Read Text File" FileName="Data\Input\testp1.txt" sap:VirtualizedContainerService.HintSize="562.666666666667,80.6666666666667" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+    <ui:Matches BuilderPattern="abc" DisplayName="Grabs line below .csproj line ending" sap:VirtualizedContainerService.HintSize="562.666666666667,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[TxtFileWithGitDiff]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;LIT&quot;,&quot;OperationName&quot;:&quot;Literal&quot;,&quot;OperationValue&quot;:&quot;abc&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?&lt;=.csproj)\n.*" RegexOption="IgnoreCase" Result="[FollowsEndingRequired]" />
+    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="562.666666666667,841.333333333333" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[FollowsEndingRequired]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -83,17 +82,16 @@
           </ActivityAction.Argument>
           <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="526,702.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="SimilarityValues" />
-              <Variable x:TypeArguments="x:Int32" Name="Values" />
-              <Variable x:TypeArguments="x:Boolean" Name="Similar" />
+              <Variable x:TypeArguments="x:Int32" Name="IndexValue" />
+              <Variable x:TypeArguments="x:Boolean" Name="SimilarityIndex" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:IsMatch DisplayName="Checks for similarity index" sap:VirtualizedContainerService.HintSize="484,58.6666666666667" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[item.ToString]" IsBuilderTabModified="False" Pattern="(?&lt;=(similarity index)).*" RegexOption="IgnoreCase, Compiled" Result="[Similar]" />
-            <If Condition="[Similar.Equals(True)]" DisplayName="If line from matches contains similarity index" sap:VirtualizedContainerService.HintSize="484,512" sap2010:WorkflowViewState.IdRef="If_3">
+            <ui:IsMatch DisplayName="Checks for similarity index" sap:VirtualizedContainerService.HintSize="484,58.6666666666667" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[item.ToString]" IsBuilderTabModified="False" Pattern="(?&lt;=(similarity index)).*" RegexOption="IgnoreCase, Compiled" Result="[SimilarityIndex]" />
+            <If Condition="[SimilarityIndex.Equals(True)]" DisplayName="If line from matches contains similarity index" sap:VirtualizedContainerService.HintSize="484,512" sap2010:WorkflowViewState.IdRef="If_3">
               <If.Then>
                 <Sequence sap:VirtualizedContainerService.HintSize="304,358" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <sap:WorkflowViewStateService.ViewState>
@@ -103,7 +101,7 @@
                   </sap:WorkflowViewStateService.ViewState>
                   <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_7">
                     <Assign.To>
-                      <OutArgument x:TypeArguments="x:Int32">[Values]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Int32">[IndexValue]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
                       <InArgument x:TypeArguments="x:Int32">[cint(item.ToString.Substring(18,2))]</InArgument>
@@ -114,15 +112,15 @@
                       <OutArgument x:TypeArguments="x:Int32">[TotalSimilarityValue]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:Int32">[TotalSimilarityValue+Values]</InArgument>
+                      <InArgument x:TypeArguments="x:Int32">[TotalSimilarityValue+IndexValue]</InArgument>
                     </Assign.Value>
                   </Assign>
                   <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_6">
                     <Assign.To>
-                      <OutArgument x:TypeArguments="x:Int32">[Count]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Int32">[NumberOfUsefulMatches]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:Int32">[Count + 1]</InArgument>
+                      <InArgument x:TypeArguments="x:Int32">[NumberOfUsefulMatches + 1]</InArgument>
                     </Assign.Value>
                   </Assign>
                 </Sequence>
@@ -134,12 +132,12 @@
     </ui:ForEach>
     <Assign sap:VirtualizedContainerService.HintSize="562.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_5">
       <Assign.To>
-        <OutArgument x:TypeArguments="x:Double">[WeightedSimilarityIndex]</OutArgument>
+        <OutArgument x:TypeArguments="x:Double">[AveragedSimilarityIndex]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="x:Double">[TotalSimilarityValue/Count]</InArgument>
+        <InArgument x:TypeArguments="x:Double">[TotalSimilarityValue/NumberOfUsefulMatches]</InArgument>
       </Assign.Value>
     </Assign>
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="562.666666666667,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[&quot;.&quot;+WeightedSimilarityIndex.ToString]" />
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="562.666666666667,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[&quot;.&quot;+AveragedSimilarityIndex.ToString]" />
   </Sequence>
 </Activity>
