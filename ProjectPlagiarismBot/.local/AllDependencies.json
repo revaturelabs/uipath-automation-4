@@ -2945,15 +2945,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lin\\.nuget\\packages\\": {}
+    "C:\\Users\\rache\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
       "projectUniqueName": "ProjectPlagiarismBot",
       "projectName": "ProjectPlagiarismBot",
-      "projectPath": "C:\\Users\\Lin\\Documents\\Revature\\P3\\uipath-automation-4\\ProjectPlagiarismBot\\.local",
-      "packagesPath": "C:\\Users\\Lin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lin\\Documents\\Revature\\P3\\uipath-automation-4\\ProjectPlagiarismBot\\.local"
+      "projectPath": "C:\\Users\\rache\\Revature\\P_3\\uipath-automation-4\\ProjectPlagiarismBot\\.local",
+      "packagesPath": "C:\\Users\\rache\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rache\\Revature\\P_3\\uipath-automation-4\\ProjectPlagiarismBot\\.local"
     },
     "frameworks": {
       "net461": {
