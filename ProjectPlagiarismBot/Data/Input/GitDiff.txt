@@ -5,6 +5,6 @@ Param(
 
 try{
 	cd Data/Temp
-	git diff --no-index --output ../Input/GitDiff_$RepoAFolderName_$RepoBFolderName.TXT $RepoAFolderName $RepoBFolderName
+	git diff --patience --no-index -C1% -wbB --output ../Output/GitDiff_$RepoAFolderName_$RepoBFolderName.TXT $RepoAFolderName $RepoBFolderName
 } 
 catch { "Unable to Git Diff $RepoAFolderName against $RepoBFolderName" }
