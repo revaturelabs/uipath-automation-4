@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1290.66666666667,1470</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1238,1430</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>RunGitDiff_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="46">
@@ -130,7 +130,7 @@
               </TryCatch>
               <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438.666666666667,334" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                 <TryCatch.Try>
-                  <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into - Git Diff" sap:VirtualizedContainerService.HintSize="334,96" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="[String.Format(&quot;git diff --no-index --output {2}\GitDiff_{0}_{1}.TXT {0} {1}&quot;, in_RepoAFolderName, in_RepoBFolderName, in_Config(&quot;GitDiffOutputFilePath&quot;))+ &quot;[k(enter)]&quot;]">
+                  <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into - Git Diff" sap:VirtualizedContainerService.HintSize="334,96" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="[String.Format(&quot;git diff --patience --no-index -C1% -wbB --output {2}\GitDiff_{0}_{1}.TXT {0} {1}&quot;, in_RepoAFolderName, in_RepoBFolderName, in_Config(&quot;GitDiffOutputFilePath&quot;))+ &quot;[k(enter)]&quot;]">
                     <ui:TypeInto.Target>
                       <ui:Target ClippingRegion="{x:Null}" Selector="{x:Null}" Element="[CommandPromptWindow]" Id="bdbc66e2-237f-4339-af16-a8d7771ae11e">
                         <ui:Target.TimeoutMS>
