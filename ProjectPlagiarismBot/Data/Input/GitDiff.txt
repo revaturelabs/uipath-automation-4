@@ -1,0 +1,10 @@
+Param(
+	[Parameter(Mandatory=$true)] [string]$RepoAFolderName,
+	[Parameter(Mandatory=$true)] [string]$RepoBFolderName
+)
+
+try{
+	cd Data/Temp
+	git diff --no-index --output ../Input/GitDiff_$RepoAFolderName_$RepoBFolderName.TXT $RepoAFolderName $RepoBFolderName
+} 
+catch { "Unable to Git Diff $RepoAFolderName against $RepoBFolderName" }
