@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>795.333333333333,1516.66666666667</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>795.333333333333,1778.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>FilterResults_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="27">
@@ -70,7 +70,7 @@
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="outputs averaged similarity index between 2 repositories with GitDiff supplied" DisplayName="FilterResults" sap:VirtualizedContainerService.HintSize="426,1412" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="outputs averaged similarity index between 2 repositories with GitDiff supplied" DisplayName="FilterResults" sap:VirtualizedContainerService.HintSize="564,1674" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="TxtFileWithGitDiff" />
       <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="SimilarityIndex" />
@@ -84,9 +84,9 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ReadTextFile Content="[TxtFileWithGitDiff]" DisplayName="Read Text File" FileName="[in_GitDiff]" sap:VirtualizedContainerService.HintSize="384,80.6666666666667" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
-    <ui:Matches BuilderPattern="((?:similarity index)).*(?=%)$" DisplayName="Grabs similarity index" sap:VirtualizedContainerService.HintSize="384,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[TxtFileWithGitDiff]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;((?:similarity index)).*(?=%)$&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?&lt;=(similarity index)).*(?=%)" RegexOption="None" Result="[SimilarityIndex]" />
-    <ui:ForEach x:TypeArguments="str:Match" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="384,496.666666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[SimilarityIndex]">
+    <ui:ReadTextFile Content="[TxtFileWithGitDiff]" DisplayName="Read Text File" FileName="[in_GitDiff]" sap:VirtualizedContainerService.HintSize="522,80.6666666666667" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+    <ui:Matches BuilderPattern="((?:similarity index)).*(?=%)$" DisplayName="Grabs similarity index" sap:VirtualizedContainerService.HintSize="522,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_3" Input="[TxtFileWithGitDiff]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;((?:similarity index)).*(?=%)$&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?&lt;=(similarity index)).*(?=%)" RegexOption="None" Result="[SimilarityIndex]" />
+    <ui:ForEach x:TypeArguments="str:Match" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="522,496.666666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_8" Values="[SimilarityIndex]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="str:Match">
           <ActivityAction.Argument>
@@ -130,7 +130,7 @@
         </ActivityAction>
       </ui:ForEach.Body>
     </ui:ForEach>
-    <Assign sap:VirtualizedContainerService.HintSize="384,62" sap2010:WorkflowViewState.IdRef="Assign_5">
+    <Assign sap:VirtualizedContainerService.HintSize="522,62" sap2010:WorkflowViewState.IdRef="Assign_5">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Double">[out_AveragedSimilarityIndex]</OutArgument>
       </Assign.To>
@@ -138,15 +138,31 @@
         <InArgument x:TypeArguments="x:Double">[TotalSimilarityValue/(100*SimilarityIndex.Count)]</InArgument>
       </Assign.Value>
     </Assign>
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="384,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[out_AveragedSimilarityIndex.ToString]" />
-    <ui:Matches sap:VirtualizedContainerService.HintSize="384,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_4" Input="[TxtFileWithGitDiff]" IsBuilderTabModified="False" Pattern="\n(.*)\n(.*)(?&lt;=(similarity index)).*" RegexOption="IgnoreCase, Compiled" Result="[thingsdiffed]" />
-    <ParallelForEach x:TypeArguments="str:Match" DisplayName="Parallel For Each" sap:VirtualizedContainerService.HintSize="384,215.333333333333" sap2010:WorkflowViewState.IdRef="ParallelForEach`1_1" Values="[thingsdiffed]">
-      <ActivityAction x:TypeArguments="str:Match">
-        <ActivityAction.Argument>
-          <DelegateInArgument x:TypeArguments="str:Match" Name="item" />
-        </ActivityAction.Argument>
-        <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="229.333333333333,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_13" Text="[item.ToString]" />
-      </ActivityAction>
-    </ParallelForEach>
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="522,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[out_AveragedSimilarityIndex.ToString]" />
+    <If sap2010:Annotation.AnnotationText="if similarity index is 100 shows trainers what is being diffed that is causing this" Condition="[out_AveragedSimilarityIndex.Equals(100)]" sap:VirtualizedContainerService.HintSize="522,590.666666666667" sap2010:WorkflowViewState.IdRef="If_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,406" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Matches sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="Matches_4" Input="[TxtFileWithGitDiff]" IsBuilderTabModified="False" Pattern="\n(.*)\n(.*)(?&lt;=(similarity index)).*" RegexOption="IgnoreCase, Compiled" Result="[thingsdiffed]" />
+          <ParallelForEach x:TypeArguments="str:Match" DisplayName="Parallel For Each" sap:VirtualizedContainerService.HintSize="334,215.333333333333" sap2010:WorkflowViewState.IdRef="ParallelForEach`1_1" Values="[thingsdiffed]">
+            <ActivityAction x:TypeArguments="str:Match">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="str:Match" Name="item" />
+              </ActivityAction.Argument>
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="229.333333333333,62.6666666666667" sap2010:WorkflowViewState.IdRef="WriteLine_13" Text="[item.ToString]" />
+            </ActivityAction>
+          </ParallelForEach>
+        </Sequence>
+      </If.Then>
+    </If>
   </Sequence>
 </Activity>
