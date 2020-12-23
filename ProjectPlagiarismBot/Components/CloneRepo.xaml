@@ -5,7 +5,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1109,963</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1290.66666666667,945.333333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>CloneRepos_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="28">
@@ -70,7 +70,7 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Sequence to clone associate project respository from GitHub. " DisplayName="CloneRepo" sap:VirtualizedContainerService.HintSize="506,857" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to clone associate project respository from GitHub. " DisplayName="CloneRepo" sap:VirtualizedContainerService.HintSize="506.666666666667,880.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="PsScript" />
     </Sequence.Variables>
@@ -81,24 +81,24 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="464,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Cloning repository from Github...&quot;]" />
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="464,603" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="464.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Cloning repository from Github...&quot;]" />
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="464.666666666667,623.333333333333" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <Sequence DisplayName="Sequence Clone the repo through Power Shell" sap:VirtualizedContainerService.HintSize="426,354" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Sequence Clone the repo through Power Shell" sap:VirtualizedContainerService.HintSize="426,362" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:ReadTextFile sap2010:Annotation.AnnotationText="Read GitClone Power Shell script and assign to variable to be called in Invoke Power Shell activity" Content="[PsScript]" DisplayName="Read Text File" FileName="Data\Input\GitClone.txt" sap:VirtualizedContainerService.HintSize="384,121" sap2010:WorkflowViewState.IdRef="ReadTextFile_1">
+          <ui:ReadTextFile sap2010:Annotation.AnnotationText="Read GitClone Power Shell script and assign to variable to be called in Invoke Power Shell activity" Content="[PsScript]" DisplayName="Read Text File" FileName="Data\Input\GitClone.txt" sap:VirtualizedContainerService.HintSize="384,126" sap2010:WorkflowViewState.IdRef="ReadTextFile_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </ui:ReadTextFile>
-          <ui:InvokePowerShell x:TypeArguments="sma:PSObject" sap2010:Annotation.AnnotationText="Run Power Shell script to navigate to correct directory and clone associate Github repository" CommandText="[PsScript]" ContinueOnError="False" DisplayName="Invoke Power Shell" sap:VirtualizedContainerService.HintSize="384,101" sap2010:WorkflowViewState.IdRef="InvokePowerShell`1_1" IsScript="True">
+          <ui:InvokePowerShell x:TypeArguments="sma:PSObject" sap2010:Annotation.AnnotationText="Run Power Shell script to navigate to correct directory and clone associate Github repository" CommandText="[PsScript]" ContinueOnError="False" DisplayName="Invoke Power Shell" sap:VirtualizedContainerService.HintSize="384,104" sap2010:WorkflowViewState.IdRef="InvokePowerShell`1_1" IsScript="True">
             <ui:InvokePowerShell.Parameters>
               <InArgument x:TypeArguments="x:String" x:Key="RepoLink">[in_RepoLink]</InArgument>
             </ui:InvokePowerShell.Parameters>
@@ -111,7 +111,7 @@
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="sma:RemoteException" sap:VirtualizedContainerService.HintSize="430,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="sma:RemoteException" sap:VirtualizedContainerService.HintSize="430.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -122,10 +122,10 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="sma:RemoteException" Name="exception" />
             </ActivityAction.Argument>
-            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Successfully cloned repo from &quot; + in_RepoLink]" />
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,90.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Successfully cloned repo from &quot; + in_RepoLink]" />
           </ActivityAction>
         </Catch>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="430,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="430.666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -136,7 +136,7 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[&quot;Unable to clone from &quot; + in_RepoLink]" />
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,90.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[&quot;Unable to clone from &quot; + in_RepoLink]" />
           </ActivityAction>
         </Catch>
       </TryCatch.Catches>
