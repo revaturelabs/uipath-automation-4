@@ -75,11 +75,14 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Sequence to create OutputMatrix.XLSX, print GitHub Repo URLs from input .CSV to X-axis and Y-axis, and print similarity percentage of unique GitHub Project Repository pair from in_SimilarityPercentageDT to OutputMatrix.XLSX for RepoA/RepoB and RepoB/RepoA." DisplayName="CreateOutputMatrix" sap:VirtualizedContainerService.HintSize="468.666666666667,1583.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to create OutputMatrix.XLSX, print GitHub Repo URLs from input .CSV to X-axis and Y-axis, and print similarity percentage of unique GitHub Project Repository pair from in_SimilarityPercentageDT to Output Matrix sheet for RepoA/RepoB and RepoB/RepoA." DisplayName="CreateOutputMatrix" sap:VirtualizedContainerService.HintSize="468.666666666667,1583.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:Int32" Name="columnIndex" />
-      <Variable x:TypeArguments="x:Int32" Name="rowIndex" />
       <Variable x:TypeArguments="x:Int32" Name="i" />
+      <Variable x:TypeArguments="x:String" Name="ExcelSheetName">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:String">Output Matrix</Literal>
+        </Variable.Default>
+      </Variable>
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -107,9 +110,9 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:WriteCell Cell="[&quot;A&quot; + (2 + in_GitHubRepoURLs.IndexOf(item)).ToString]" DisplayName="Write Cell - GitHub Repo URL on Y-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="Sheet1" Text="[item]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
-            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(item)).ToString + &quot;1&quot;]" DisplayName="Write Cell - GitHub Repo URL on X-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_3" SheetName="Sheet1" Text="[item]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
-            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + i).ToString + (2 + i).ToString]" DisplayName="Write Cell - GitHub Repo 100% Self-Similarity on Diagonal" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_4" SheetName="Sheet1" Text="100.00 %" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
+            <ui:WriteCell Cell="[&quot;A&quot; + (2 + in_GitHubRepoURLs.IndexOf(item)).ToString]" DisplayName="Write Cell - GitHub Repo URL on Y-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="[ExcelSheetName]" Text="[item]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
+            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(item)).ToString + &quot;1&quot;]" DisplayName="Write Cell - GitHub Repo URL on X-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_3" SheetName="[ExcelSheetName]" Text="[item]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
+            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + i).ToString + (2 + i).ToString]" DisplayName="Write Cell - GitHub Repo 100% Self-Similarity on Diagonal" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_4" SheetName="[ExcelSheetName]" Text="100.00 %" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
             <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_2">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Int32">[i]</OutArgument>
@@ -134,8 +137,8 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoA/RepoB Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="Sheet1" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
-            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoB/RepoA Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_5" SheetName="Sheet1" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
+            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoA/RepoB Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="[ExcelSheetName]" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
+            <ui:WriteCell Cell="[Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoB/RepoA Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_5" SheetName="[ExcelSheetName]" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
           </Sequence>
         </ActivityAction>
       </ui:ForEachRow.Body>
