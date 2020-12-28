@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1328,645</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>549.333333333333,844.666666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>HandleOutput_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -56,30 +56,33 @@
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Sequence to implement HandleOutput workflow in accordance with the batch's P3 Project Guideline convention:&#xD;&#xA;&#xD;&#xA;Invoke CreateOutputMatrix workflow to create OutputMatrix.XLSX, print GitHub Repo URLs from input .CSV to X-axis and Y-axis, and print similarity percentage of unique GitHub Project Repository pair from in_SimilarityPercentageDT to Output Matrix sheet for RepoA/RepoB and RepoB/RepoA.&#xD;&#xA;&#xD;&#xA;Invoke CreateSummaryStatistics workflow to create Summary Statistics sheet in OutputMatrix.XLSX, print sorted similarity percentage of unique GitHub Project Repository pair from in_SimilarityPercentageDT, compute and print simple summary statistics of similarity percentage based on Excel formula." DisplayName="HandleOutput" sap:VirtualizedContainerService.HintSize="383,578" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to implement HandleOutput workflow in accordance with the batch's P3 Project Guideline convention:&#xA;&#xA;Invoke CreateOutputMatrix workflow to create OutputMatrix.XLSX, print GitHub Repo URLs from input .CSV to X-axis and Y-axis, and print similarity percentage of unique GitHub Project Repository pair from in_SimilarityPercentageDT to Output Matrix sheet for RepoA/RepoB and RepoB/RepoA.&#xA;&#xA;Invoke CreateSummaryStatistics workflow to create Summary Statistics sheet in OutputMatrix.XLSX, print sorted similarity percentage of unique GitHub Project Repository pair from in_SimilarityPercentageDT, compute and print simple summary statistics of similarity percentage based on Excel formula." DisplayName="HandleOutput" sap:VirtualizedContainerService.HintSize="380,740" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CreateOutputMatrix workflow" sap:VirtualizedContainerService.HintSize="341,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\CreateOutputMatrix.xaml">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="338,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Handling output in end state&quot;]" />
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CreateOutputMatrix workflow" sap:VirtualizedContainerService.HintSize="338,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\CreateOutputMatrix.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_SimilarityPercentageDT">
-          <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="in_SimilarityPercentageDT" />
-        </InArgument>
-        <InArgument x:TypeArguments="scg:List(x:String)" x:Key="in_GitHubRepoURLs">
-          <mva:VisualBasicValue x:TypeArguments="scg:List(x:String)" ExpressionText="in_GitHubRepoURLs" />
-        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_SimilarityPercentageDT">[in_SimilarityPercentageDT]</InArgument>
+        <InArgument x:TypeArguments="scg:List(x:String)" x:Key="in_GitHubRepoURLs">[in_GitHubRepoURLs]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CreateSummaryStatistics workflow" sap:VirtualizedContainerService.HintSize="341,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Components\CreateSummaryStatistics.xaml">
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CreateSummaryStatistics workflow" sap:VirtualizedContainerService.HintSize="338,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Components\CreateSummaryStatistics.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_SimilarityPercentageDT">
-          <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="in_SimilarityPercentageDT" />
-        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_SimilarityPercentageDT">[in_SimilarityPercentageDT]</InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
   </Sequence>
