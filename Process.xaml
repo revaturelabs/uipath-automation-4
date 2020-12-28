@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1300,2953.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1300,2801.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="54">
@@ -73,7 +73,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1310,2848.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1310,2736.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="RepoAFilePathExists" />
       <Variable x:TypeArguments="x:Boolean" Name="RepoBFilePathExists" />
@@ -82,6 +82,8 @@
       <Variable x:TypeArguments="x:Double" Name="SimilarityPercentage" />
       <Variable x:TypeArguments="x:String" Name="RepoAFullPath" />
       <Variable x:TypeArguments="x:String" Name="RepoBFullPath" />
+      <Variable x:TypeArguments="x:String" Name="RepoCloningPath" />
+      <Variable x:TypeArguments="x:String" Name="RepoBTargetPath" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -89,7 +91,7 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1268,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Implementing process workflow&quot;]" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1268,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Running Process.xaml workflow&quot;]" />
     <Assign DisplayName="Assign - RepoA Folder Name" sap:VirtualizedContainerService.HintSize="1268,62" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[RepoAFolderName]</OutArgument>
@@ -106,52 +108,27 @@
         <InArgument x:TypeArguments="x:String">[Split(in_TransactionItem("RepoB").ToString, "/").Last]</InArgument>
       </Assign.Value>
     </Assign>
-    <Sequence DisplayName="Get Paths to clone to" sap:VirtualizedContainerService.HintSize="1268,588" sap2010:WorkflowViewState.IdRef="Sequence_6">
-      <Sequence.Variables>
-        <Variable x:TypeArguments="x:String" Name="RepoATargetPath" />
-        <Variable x:TypeArguments="x:String" Name="RepoBTargetPath" />
-      </Sequence.Variables>
+    <Sequence DisplayName="Get Paths to clone to" sap:VirtualizedContainerService.HintSize="1268,476" sap2010:WorkflowViewState.IdRef="Sequence_6">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:MultipleAssign DisplayName="Multiple Assign - Target Paths" sap:VirtualizedContainerService.HintSize="848.666666666667,128" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
-        <ui:MultipleAssign.AssignOperations>
-          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
-            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
-              <ui:AssignOperation.To>
-                <OutArgument x:TypeArguments="x:String">[RepoATargetPath]</OutArgument>
-              </ui:AssignOperation.To>
-              <ui:AssignOperation.Value>
-                <InArgument x:TypeArguments="x:String">[in_Config("GitCloneRepoATargetPath").ToString]</InArgument>
-              </ui:AssignOperation.Value>
-            </ui:AssignOperation>
-            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
-              <ui:AssignOperation.To>
-                <OutArgument x:TypeArguments="x:String">[RepoBTargetPath]</OutArgument>
-              </ui:AssignOperation.To>
-              <ui:AssignOperation.Value>
-                <InArgument x:TypeArguments="x:String">[in_Config("GitCloneRepoBTargetPath").ToString]</InArgument>
-              </ui:AssignOperation.Value>
-            </ui:AssignOperation>
-          </scg:List>
-        </ui:MultipleAssign.AssignOperations>
-      </ui:MultipleAssign>
-      <Parallel DisplayName="Parallel - Target Folder Check" sap:VirtualizedContainerService.HintSize="848.666666666667,160" sap2010:WorkflowViewState.IdRef="Parallel_1">
-        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Ensure Target Folder for RepoA Exists" sap:VirtualizedContainerService.HintSize="337.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Components\EnsureTargetFolderExists.xaml">
-          <ui:InvokeWorkflowFile.Arguments>
-            <InArgument x:TypeArguments="x:String" x:Key="in_TargetFolderPath">[RepoATargetPath]</InArgument>
-          </ui:InvokeWorkflowFile.Arguments>
-        </ui:InvokeWorkflowFile>
-        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Ensure Target Folder for RepoB Exists" sap:VirtualizedContainerService.HintSize="337.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Components\EnsureTargetFolderExists.xaml">
-          <ui:InvokeWorkflowFile.Arguments>
-            <InArgument x:TypeArguments="x:String" x:Key="in_TargetFolderPath">[RepoBTargetPath]</InArgument>
-          </ui:InvokeWorkflowFile.Arguments>
-        </ui:InvokeWorkflowFile>
-      </Parallel>
-      <ui:MultipleAssign DisplayName="Multiple Assign - Complete Paths of repos" sap:VirtualizedContainerService.HintSize="848.666666666667,128" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+      <Assign sap:VirtualizedContainerService.HintSize="337.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[RepoCloningPath]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[in_Config("GitCloneRepoFolderPath").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Ensure Repo Cloning Path Exists" sap:VirtualizedContainerService.HintSize="337.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Components\EnsureTargetFolderExists.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_TargetFolderPath">[RepoCloningPath]</InArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:MultipleAssign DisplayName="Multiple Assign - Complete Paths of repos" sap:VirtualizedContainerService.HintSize="337.333333333333,128" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
         <ui:MultipleAssign.AssignOperations>
           <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
@@ -159,7 +136,7 @@
                 <OutArgument x:TypeArguments="x:String">[RepoAFullPath]</OutArgument>
               </ui:AssignOperation.To>
               <ui:AssignOperation.Value>
-                <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1}", RepoATargetPath,RepoAFolderName)]</InArgument>
+                <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1}", RepoCloningPath, RepoAFolderName)]</InArgument>
               </ui:AssignOperation.Value>
             </ui:AssignOperation>
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
@@ -167,7 +144,7 @@
                 <OutArgument x:TypeArguments="x:String">[RepoBFullPath]</OutArgument>
               </ui:AssignOperation.To>
               <ui:AssignOperation.Value>
-                <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1}", RepoBTargetPath,RepoBFolderName)]</InArgument>
+                <InArgument x:TypeArguments="x:String">[String.Format("{0}\{1}", RepoCloningPath, RepoBFolderName)]</InArgument>
               </ui:AssignOperation.Value>
             </ui:AssignOperation>
           </scg:List>
@@ -221,7 +198,7 @@
               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CloneRepo workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Components\CloneRepo.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
                   <InArgument x:TypeArguments="x:String" x:Key="in_RepoLink">[in_TransactionItem("RepoA").ToString + ".git"]</InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoTargetPath">[in_Config("GitCloneRepoATargetPath").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoTargetPath">[in_Config("GitCloneRepoFolderPath").ToString]</InArgument>
                   <InArgument x:TypeArguments="x:String" x:Key="in_RepoFolderName">[RepoAFolderName]</InArgument>
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
@@ -241,7 +218,7 @@
               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CloneRepo workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="Components\CloneRepo.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
                   <InArgument x:TypeArguments="x:String" x:Key="in_RepoLink">[in_TransactionItem("RepoB").ToString + ".git"]</InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoTargetPath">[in_Config("GitCloneRepoBTargetPath").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoTargetPath">[in_Config("GitCloneRepoFolderPath").ToString]</InArgument>
                   <InArgument x:TypeArguments="x:String" x:Key="in_RepoFolderName">[RepoBFolderName]</InArgument>
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
