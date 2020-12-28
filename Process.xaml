@@ -218,15 +218,9 @@
             <If.Else>
               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CloneRepo workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Components\CloneRepo.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoLink">
-                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem(&quot;RepoA&quot;).ToString + &quot;.git&quot;" />
-                  </InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoTargetPath">
-                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;GitCloneRepoATargetPath&quot;).ToString" />
-                  </InArgument>
-                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoFolderName">
-                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="RepoAFolderName" />
-                  </InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoLink">[in_TransactionItem("RepoA").ToString + ".git"]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoTargetPath">[in_Config("GitCloneRepoATargetPath").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RepoFolderName">[RepoAFolderName]</InArgument>
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
             </If.Else>
@@ -286,10 +280,18 @@
       </ui:InvokeWorkflowFile>
       <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke AnalyzeGitDiff workflow" sap:VirtualizedContainerService.HintSize="337.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" UnSafe="False" WorkflowFileName="Components\AnalyzeGitDiff.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <OutArgument x:TypeArguments="x:Double" x:Key="out_SimilarityPercentage">[SimilarityPercentage]</OutArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_GitDiffOutputPath">[GitDiffOutputPath]</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_RepoBFolderName">[RepoBFolderName]</InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_RepoAFolderName">[RepoAFolderName]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RepoAFolderName">
+            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="RepoAFolderName" />
+          </InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RepoBFolderName">
+            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="RepoBFolderName" />
+          </InArgument>
+          <OutArgument x:TypeArguments="x:Double" x:Key="out_SimilarityPercentage">
+            <mva:VisualBasicReference x:TypeArguments="x:Double" ExpressionText="SimilarityPercentage" />
+          </OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_GitDiffOutputPath">
+            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="GitDiffOutputPath" />
+          </InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
       <ui:Delete ContinueOnError="{x:Null}" DisplayName="Delete GitDiff File" sap:VirtualizedContainerService.HintSize="337.333333333333,22" sap2010:WorkflowViewState.IdRef="Delete_1" Path="[GitDiffOutputPath]" />
