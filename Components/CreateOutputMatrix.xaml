@@ -2,6 +2,7 @@
   <x:Members>
     <x:Property Name="in_SimilarityPercentageDT" Type="InArgument(sd:DataTable)" />
     <x:Property Name="in_GitHubRepoURLs" Type="InArgument(scg:List(x:String))" />
+    <x:Property Name="in_OutputMatrixFilePath" Type="InArgument(x:String)" />
   </x:Members>
   <this:CreateOutputMatrix.in_SimilarityPercentageDT>
     <InArgument x:TypeArguments="sd:DataTable" />
@@ -9,7 +10,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>549.333333333333,1618.66666666667</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1280.66666666667,1578.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>CreateOutputMatrix_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="30">
@@ -73,7 +74,6 @@
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Sequence to create OutputMatrix.XLSX, print GitHub Repo URLs from input .CSV to X-axis and Y-axis, and print similarity percentage of unique GitHub Project Repository pair from in_SimilarityPercentageDT to Output Matrix sheet for RepoA/RepoB and RepoB/RepoA." DisplayName="CreateOutputMatrix" sap:VirtualizedContainerService.HintSize="468.666666666667,1514" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -99,9 +99,9 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:WriteCell Cell="[&quot;A&quot; + (2 + in_GitHubRepoURLs.IndexOf(item)).ToString]" DisplayName="Write Cell - GitHub Repo URL on Y-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="[ExcelSheetName]" Text="[item]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
-            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(item) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(item)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(item) - 25).ToString) + &quot;1&quot;]" DisplayName="Write Cell - GitHub Repo URL on X-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_3" SheetName="[ExcelSheetName]" Text="[item]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
-            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(item) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(item)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(item) - 25).ToString) + (2 + in_GitHubRepoURLs.IndexOf(item)).ToString]" DisplayName="Write Cell - GitHub Repo 100% Self-Similarity on Diagonal" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_4" SheetName="[ExcelSheetName]" Text="100.00 %" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
+            <ui:WriteCell Cell="[&quot;A&quot; + (2 + in_GitHubRepoURLs.IndexOf(item)).ToString]" DisplayName="Write Cell - GitHub Repo URL on Y-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="[ExcelSheetName]" Text="[item]" WorkbookPath="[in_OutputMatrixFilePath]" />
+            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(item) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(item)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(item) - 25).ToString) + &quot;1&quot;]" DisplayName="Write Cell - GitHub Repo URL on X-Axis" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_3" SheetName="[ExcelSheetName]" Text="[item]" WorkbookPath="[in_OutputMatrixFilePath]" />
+            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(item) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(item)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(item) - 25).ToString) + (2 + in_GitHubRepoURLs.IndexOf(item)).ToString]" DisplayName="Write Cell - GitHub Repo 100% Self-Similarity on Diagonal" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_4" SheetName="[ExcelSheetName]" Text="100.00 %" WorkbookPath="[in_OutputMatrixFilePath]" />
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
@@ -118,8 +118,8 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString) - 25).ToString) + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoA/RepoB Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="[ExcelSheetName]" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
-            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString) - 25).ToString) + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoB/RepoA Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_5" SheetName="[ExcelSheetName]" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="Data\Output\OutputMatrix.xlsx" />
+            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString) - 25).ToString) + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoA/RepoB Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="[ExcelSheetName]" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="[in_OutputMatrixFilePath]" />
+            <ui:WriteCell Cell="[If(in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString) &lt; 25, Chr(Asc(&quot;B&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString)).ToString, &quot;A&quot; + Chr(Asc(&quot;A&quot;) + in_GitHubRepoURLs.IndexOf(row(&quot;RepoB&quot;).ToString) - 25).ToString) + (2 + in_GitHubRepoURLs.IndexOf(row(&quot;RepoA&quot;).ToString)).ToString]" DisplayName="Write Cell - RepoB/RepoA Similarity Percentage" sap:VirtualizedContainerService.HintSize="334,114.666666666667" sap2010:WorkflowViewState.IdRef="WriteCell_5" SheetName="[ExcelSheetName]" Text="[Double.Parse(row(&quot;SimilarityPercentage&quot;).ToString).ToString(&quot;P&quot;)]" WorkbookPath="[in_OutputMatrixFilePath]" />
           </Sequence>
         </ActivityAction>
       </ui:ForEachRow.Body>
