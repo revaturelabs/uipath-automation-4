@@ -3,7 +3,7 @@
     <x:Property sap2010:Annotation.AnnotationText="This variable should be the TransactionData variable used by the REFramework, modified with a status column, to be written to a file. This allows the user to see the state of the transactions, whether successful or not." Name="in_TransactionData" Type="InArgument(sd:DataTable)" />
     <x:Property sap2010:Annotation.AnnotationText="This is the Config dictionary used by REFramework, complete with useful constants. Should be passed in to allow the use of values set in the Config.xlsx file." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1280.66666666667,1078</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1280.66666666667,1061.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -68,7 +68,7 @@
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="This workflow writes a report of the transactions processed and their ultimate status by writing the TransactionData variable to a specified path in the Documents folder of the invoking user's computer." DisplayName="Write Transaction Report" sap:VirtualizedContainerService.HintSize="480.666666666667,1013.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to implement WriteTransactionReport workflow in accordance with the batch's P3 Project Guideline convention and print the TransactionData DataTable." DisplayName="Write Transaction Report" sap:VirtualizedContainerService.HintSize="480.666666666667,996.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="s:DateTime" Name="NowDateTime" />
       <Variable x:TypeArguments="x:String" Name="DateString" />
