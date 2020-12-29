@@ -8,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>549.333333333333,926.666666666667</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1280.66666666667,1040.66666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Dispatcher_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -69,7 +69,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Sequence to implement Dispatcher workflow in accordance with the batch's P3 Project Guideline convention:&#xA;&#xA;Invoke PromptUserInputFilePath workflow to prompt the user to enter the complete file path of the GitHub Repo URL input .CSV and write the file path to Config.XLSX.&#xA;&#xA;Invoke DefineTransactionData workflow to read in GitHub Repo URL Input .CSV and define Transaction Data DataTable based on GitHub Repo URL .CSV content.&#xA;&#xA;Build SimilarityPercentageDT DataTable with computed similarity percentage for RepoA/RepoB." DisplayName="Dispatcher" sap:VirtualizedContainerService.HintSize="382,822" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Sequence to implement Dispatcher workflow in accordance with the batch's P3 Project Guideline convention:&#xA;&#xA;Invoke PromptUserInputFilePath workflow to prompt the user to enter the complete file path of the GitHub Repo URL input .CSV and write the file path to Config.XLSX.&#xA;&#xA;Invoke DefineTransactionData workflow to read in GitHub Repo URL Input .CSV and define Transaction Data DataTable based on GitHub Repo URL .CSV content.&#xA;&#xA;Build SimilarityPercentageDT DataTable with computed similarity percentage for RepoA/RepoB." DisplayName="Dispatcher" sap:VirtualizedContainerService.HintSize="382,976" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -80,6 +80,13 @@
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke PromptUserInputFilePath workflow" sap:VirtualizedContainerService.HintSize="340,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\PromptUserInputFilePath.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <InOutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="io_Config">[in_Config]</InOutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke InputValidation workflow" sap:VirtualizedContainerService.HintSize="340,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Components\InputValidation.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_InputFilePath">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;InputCSVFilePath&quot;).ToString" />
+        </InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke DefineTransactionData workflow" sap:VirtualizedContainerService.HintSize="340,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Framework\DefineTransactionData.xaml">
