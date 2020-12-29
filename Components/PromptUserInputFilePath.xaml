@@ -84,7 +84,7 @@
         <InArgument x:TypeArguments="x:Object">[InputFilePath]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:MessageBox ChosenButton="{x:Null}" Buttons="Ok" Caption="GitHub Repo URL Input .CSV" DisplayName="Message Box - Output Folder Path to Save OutputMatrix.XLSX" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Please enter the complete file path of the output folder to save OutputMatrix.XLSX:&quot;]" />
+    <ui:MessageBox ChosenButton="{x:Null}" Buttons="Ok" Caption="GitHub Repo URL Input .CSV" DisplayName="Message Box - Output Folder Path to Save OutputMatrix.XLSX" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Please enter the complete folder path of the output folder to save OutputMatrix.XLSX:&quot;]" />
     <ui:SelectFolder DisplayName="Select Folder" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="SelectFolder_1" SelectedFolder="[OutputFolderPath]" />
     <Assign DisplayName="Assign Output Folder Path" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_3">
       <Assign.To>
